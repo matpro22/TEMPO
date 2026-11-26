@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tempo · BTS CIEL</title>
+  <meta name="theme-color" content="#eef2f8">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235AC8FA'/%3E%3Cstop offset='1' stop-color='%235E5CE6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='34' r='17' fill='none' stroke='white' stroke-width='5'/%3E%3Cpath d='M32 24v10l7 5' stroke='white' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Tempo">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Fond animé -->
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><div class="blob b5"></div>
+    <div class="bg-image"></div>
+    <div class="grain"></div>
+  </div>
+
+  <!-- Filtres SVG pour l'effet de réfraction liquid glass -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="lg-refract" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="11" result="noise"/>
+      <feGaussianBlur in="noise" stdDeviation="2.5" result="soft"/>
+      <feDisplacementMap in="SourceGraphic" in2="soft" scale="38" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <div class="app" id="app">
+    <aside class="sidebar glass" id="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5"/><path d="M12 9v4.2l2.8 2"/><path d="M9.5 2.8h5"/></svg>
+        </div>
+        <div class="brand-txt"><b>Tempo</b><small id="brand-sub">BTS CIEL</small></div>
+        <button class="icon-btn collapse-btn" id="collapse-btn" title="Réduire la barre latérale"></button>
+      </div>
+      <nav class="nav" id="nav"><div class="nav-indicator lg-refract" id="nav-indicator"></div></nav>
+      <div class="sidebar-foot">
+        <button class="mini-timer" id="mini-timer" hidden></button>
+        <div class="save-state" id="save-state"><span class="dot"></span><span class="txt">Enregistré</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar glass" id="topbar">
+        <div class="tb-title">
+          <h1 id="view-title">Accueil</h1>
+          <p id="view-sub"></p>
+        </div>
+        <div class="tb-actions">
+          <button class="search-btn" id="search-btn" title="Rechercher (Ctrl+K)">
+            <span class="ico" data-icon="search"></span><span class="lbl">Rechercher…</span><kbd>Ctrl K</kbd>
+          </button>
+          <button class="icon-btn" id="undo-btn" title="Annuler (Ctrl+Z)" data-icon="undo"></button>
+          <button class="icon-btn" id="redo-btn" title="Rétablir (Ctrl+Y)" data-icon="redo"></button>
+          <button class="icon-btn" id="theme-btn" title="Thème clair / sombre" data-icon="moon"></button>
+          <button class="btn primary add-btn" id="add-btn" title="Ajouter"><span data-icon="plus"></span><span class="lbl">Ajouter</span></button>
+        </div>
+      </header>
+      <section class="view" id="view" tabindex="-1"></section>
+    </main>
+  </div>
+
+  <nav class="dock glass" id="dock"></nav>
+  <div id="overlay-root"></div>
+  <div class="toasts" id="toasts"></div>
+
+  <script src="js/core.js"></script>
+  <script src="js/perso.js" onerror="void 0"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/fun.js"></script>
+  <script src="js/markdown.js"></script>
+  <script src="js/reminders.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/journal.js"></script>
+  <script src="js/views/dashboard.js"></script>
+  <script src="js/views/timetable.js"></script>
+  <script src="js/views/projects.js"></script>
+  <script src="js/views/gantt.js"></script>
+  <script src="js/views/tasks.js"></script>
+  <script src="js/views/homework.js"></script>
+  <script src="js/views/calendar.js"></script>
+  <script src="js/views/focus.js"></script>
+  <script src="js/views/stats.js"></script>
+  <script src="js/views/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

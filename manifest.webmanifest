@@ -1,0 +1,17 @@
+{
+  "name": "Tempo · BTS CIEL",
+  "short_name": "Tempo",
+  "description": "Gestion de temps et de projets pour le BTS CIEL",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#eef2f8",
+  "theme_color": "#eef2f8",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

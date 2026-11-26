@@ -1,0 +1,5 @@
+# Données personnelles : jamais publiées (elles passent par la synchro privée)
+js/perso.js
+*.json.bak
+tempo-sauvegarde*.json
+.claude/
