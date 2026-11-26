@@ -321,6 +321,8 @@
     if (!localStorage.getItem('tempo.ciel.welcomed')) { localStorage.setItem('tempo.ciel.welcomed', '1'); setTimeout(help, 700); }
     else setTimeout(reminders, 1200);
     requestAnimationFrame(() => document.body.classList.add('ready'));
+    // on laisse le loader au moins ~0,9 s pour qu'il soit agréable, puis il s'efface
+    setTimeout(() => window.__hideSplash && window.__hideSplash(), Math.max(0, 900 - performance.now()));
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })(window.App);

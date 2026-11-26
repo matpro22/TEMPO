@@ -13,9 +13,71 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Tempo">
   <meta name="format-detection" content="telephone=no">
+  <!-- Écran de chargement : style inline pour s'afficher avant tout le reste -->
+  <script>
+    try { var raw = localStorage.getItem('tempo.ciel.v1') || ''; if (raw.indexOf('"theme":"dark"') > -1 || (raw.indexOf('"theme":"auto"') > -1 && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+  </script>
+  <style>
+    #splash { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; overflow: hidden; background: #eef2f8; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; color: #1d1d1f; transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1), filter .6s; }
+    html[data-theme="dark"] #splash { background: #0b0d13; color: #f5f5f7; }
+    #splash.out { opacity: 0; transform: scale(1.06); filter: blur(12px); pointer-events: none; }
+    #splash .sp-blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .7; animation: spFloat 6s ease-in-out infinite alternate; }
+    html[data-theme="dark"] #splash .sp-blob { opacity: .35; }
+    #splash .sp-b1 { width: 60vmax; height: 60vmax; left: -20vmax; top: -25vmax; background: #9ad7ff; }
+    #splash .sp-b2 { width: 50vmax; height: 50vmax; right: -18vmax; top: -10vmax; background: #d4c2ff; animation-delay: -2s; }
+    #splash .sp-b3 { width: 55vmax; height: 55vmax; left: 10vmax; bottom: -30vmax; background: #ffc6e2; animation-delay: -4s; }
+    @keyframes spFloat { to { transform: translate(4vmax, 3vmax) scale(1.08); } }
+    #splash .sp-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 38px 46px 30px; border-radius: 34px; background: linear-gradient(150deg, rgba(255,255,255,.75), rgba(255,255,255,.4)); -webkit-backdrop-filter: blur(24px) saturate(190%); backdrop-filter: blur(24px) saturate(190%); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 0 0 1px rgba(255,255,255,.5), 0 30px 80px -20px rgba(30,45,90,.35); animation: spIn .8s cubic-bezier(.34,1.56,.64,1) both; }
+    html[data-theme="dark"] #splash .sp-card { background: linear-gradient(150deg, rgba(50,54,68,.7), rgba(30,32,42,.55)); box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 30px 80px -20px rgba(0,0,0,.7); }
+    @keyframes spIn { from { opacity: 0; transform: translateY(24px) scale(.9); } }
+    #splash .sp-logo { position: relative; width: 92px; height: 92px; border-radius: 26px; display: grid; place-items: center; background: linear-gradient(135deg, #5AC8FA, #0A84FF 55%, #5E5CE6); box-shadow: 0 14px 34px -8px rgba(10,132,255,.7), inset 0 2px 0 rgba(255,255,255,.5); animation: spPulse 2s ease-in-out infinite; }
+    #splash .sp-logo::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.55) 48%, transparent 62%); background-size: 250% 100%; animation: spShine 2.2s ease-in-out infinite; }
+    @keyframes spPulse { 50% { transform: scale(1.05); } }
+    @keyframes spShine { from { background-position: 150% 0; } to { background-position: -100% 0; } }
+    #splash .sp-logo svg { width: 58px; height: 58px; overflow: visible; }
+    #splash .sp-hand { transform-origin: 32px 35px; animation: spTurn 1.4s linear infinite; }
+    #splash .sp-hand2 { transform-origin: 32px 35px; animation: spTurn 8s linear infinite; }
+    @keyframes spTurn { to { transform: rotate(360deg); } }
+    #splash h1 { margin: 0; font-size: 2rem; font-weight: 800; letter-spacing: -.045em; background: linear-gradient(120deg, #1d1d1f 35%, #0A84FF); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    html[data-theme="dark"] #splash h1 { background-image: linear-gradient(120deg, #f5f5f7 35%, #64D2FF); }
+    #splash .sp-bar { width: 190px; height: 6px; border-radius: 3px; background: rgba(120,120,135,.18); overflow: hidden; }
+    #splash .sp-bar i { display: block; height: 100%; width: 40%; border-radius: inherit; background: linear-gradient(90deg, #5AC8FA, #0A84FF, #BF5AF2); animation: spBar 1.3s cubic-bezier(.65,0,.35,1) infinite; }
+    @keyframes spBar { from { transform: translateX(-110%); } to { transform: translateX(260%); } }
+    #splash .sp-txt { margin: 0; min-height: 1.2em; font-size: .9rem; color: #86868b; text-align: center; max-width: 260px; animation: spFade .5s ease both .3s; }
+    @keyframes spFade { from { opacity: 0; transform: translateY(6px); } }
+    @media (prefers-reduced-motion: reduce) { #splash * { animation-duration: 0s !important; } }
+  </style>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div id="splash" role="status" aria-label="Chargement de Tempo">
+    <div class="sp-blob sp-b1"></div><div class="sp-blob sp-b2"></div><div class="sp-blob sp-b3"></div>
+    <div class="sp-card">
+      <div class="sp-logo">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-linecap="round">
+          <circle cx="32" cy="35" r="20" stroke-width="5"/>
+          <path d="M26 9h12" stroke-width="5"/>
+          <path class="sp-hand2" d="M32 35v-9" stroke-width="5"/>
+          <path class="sp-hand" d="M32 35l9 5" stroke-width="4.5"/>
+          <circle cx="32" cy="35" r="3" fill="#fff" stroke="none"/>
+        </svg>
+      </div>
+      <h1>Tempo</h1>
+      <div class="sp-bar"><i></i></div>
+      <p class="sp-txt" id="sp-txt"></p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var t = ['Chargement de ta motivation… ☕', 'On réveille les VLAN… 📶', 'Ping du cerveau en cours… 🧠', 'On range ton Gantt… 📊', 'Compilation du courage… 💪', 'Synchronisation des neurones… ⚡', 'On cherche le bouton « productivité »… 🔍', 'Dépoussiérage du Kanban… 🧹'];
+      var el = document.getElementById('sp-txt'); if (el) el.textContent = t[Math.floor(Math.random() * t.length)];
+      window.__hideSplash = function () {
+        var s = document.getElementById('splash'); if (!s || s.classList.contains('out')) return;
+        s.classList.add('out'); setTimeout(function () { if (s.parentNode) s.parentNode.removeChild(s); }, 750);
+      };
+      setTimeout(window.__hideSplash, 8000); // sécurité
+    })();
+  </script>
   <!-- Fond animé -->
   <div class="bg" aria-hidden="true">
     <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><div class="blob b5"></div>

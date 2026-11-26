@@ -1,5 +1,5 @@
 /* Tempo — service worker : fonctionne hors ligne et se met à jour tout seul */
-const VERSION = 'tempo-v4';
+const VERSION = 'tempo-v5';
 const FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/core.js', 'js/data.js', 'js/perso.js', 'js/ui.js', 'js/fun.js', 'js/markdown.js', 'js/reminders.js', 'js/sync.js', 'js/journal.js',
